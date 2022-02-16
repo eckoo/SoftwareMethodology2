@@ -57,20 +57,33 @@ public class BankTeller {
 		int n = tokens.length;
 		if ((n == O_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("O"))) {
 			b1(tokens);
-		} else if ((n == P_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("P"))) { //prints all accounts in database in current order
-			AccountDatabase.print();
-		} else if ((n == C_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("C"))) { //closeAccount sets account to close, balance to 0, isLoyalAccount to false. Remain
+		}
+		else if ((n == C_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("C"))) { //closeAccount sets account to close, balance to 0, isLoyalAccount to false. Remain
 			closeAccount(tokens);																//in database and can be reopened later
-		} else if ((n == PT_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("PT"))) { //prints all accounts in database ordered by account type
+		}
+		else if ((n == D_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("D"))) { //D calls the deposit
+			AccountDatabase.deposit(tokens);																
+		}
+		else if ((n == W_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("W"))) { //W calls the withdraw
+			AccountDatabase.withdraw(tokens);																
+		}
+		else if ((n == P_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("P"))) { //prints all accounts in database in current order
+			AccountDatabase.print();
+		}
+		else if ((n == PT_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("PT"))) { //prints all accounts in database ordered by account type
 			AccountDatabase.printByAccountType();
-		} else if ((n == PI_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("PI"))) { //prints all accounts in database with calculated fees and monthly interests
+		}
+		else if ((n == PI_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("PI"))) { //prints all accounts in database with calculated fees and monthly interests
 			AccountDatabase.printFeeAndInterest();
-		} else if ((n == CP_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("CP"))) {
-			cp(tokens);
-		} else if ((n == Q_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("Q"))) {
+		}
+		else if ((n == CP_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("UB"))) {// UB updates balances for all accounts with calculated fees and monthly interests
+			cp(tokens);																		   // and displays all the accounts in the database with the updated balances.
+		}
+		else if ((n == Q_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("Q"))) {
 			System.out.println("Bank Teller is terminated.");
 			return true;
-		} else {
+		}
+		else {
 			System.out.println("Invalid command!");
 		}
 		return false;

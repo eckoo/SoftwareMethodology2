@@ -72,21 +72,24 @@ public abstract class Account {
 	}
 	
 	/**
-	 * 
-	 * @return 
+	 * getHolder gets the holder for the Account.
+	 * @return object of type Profile for the Account.
 	 */
 	public Profile getHolder() {
 		return this.holder;
 	}
 	
+	/**
+	 * getClosed gets the closed status for the Account.
+	 * @return object of type boolean for the Account.
+	 */
 	public boolean getClosed() {
 		return this.closed;
 	}
 	
 	/**
-	 * getBalance is a constructor method.
-	 * @return balance.
-	 * 
+	 * getBalance gets the balance for the Account.
+	 * @return object of type double for the Account.
 	 */
 	public double getBalance() {
 		return this.balance;
