@@ -8,8 +8,9 @@ public abstract class Account {
 	//maybe check account class
 	
 	/**
-	 * 
-	 * 
+	 * equals compares two accounts.
+	 * @param obj Object of type Accounts.
+	 * @return boolean (True if holder, closed status, and balance match), (False if holder, closed status, and balance do not match)
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -30,21 +31,26 @@ public abstract class Account {
 	}
 	
 	/**
-	 * The toString method 
-	 * @return 
+	 * This is the toString method.
+	 * 
+	 * @return the string representation of the Account.
 	 */
 	@Override
 	public String toString() {
 		return type + holder.toString() + "::Balance " + Double.toString(balance) + "::" + /*location and loyalty member and withdraw/deposit*/;
 	}
 	
+	/**
+	 * The withdraw method will removed the designated amount from the balance of the account.
+	 * @param amount Object of type Double.
+	 */
 	public void withdraw(double amount) {
 		balance -= amount;
 	}
 	
 	/**
-	 * 
-	 * @param amount
+	 * The deposit method will add the designated amount to the balance of the account.
+	 * @param amount Object of type Double.
 	 */
 	public void deposit(double amount) {
 		balance += amount;
@@ -52,24 +58,20 @@ public abstract class Account {
 	
 	/**
 	 * 
-	 * @return
 	 */
-	public abstract double monthlyInterest(); { //return the monthly interest
-	}
+	public abstract double monthlyInterest();  //return the monthly interest
+	
 	
 	/**
 	 * 
-	 * @return
 	 */
-	public abstract double fee(); {			//return the monthly fee
-	}
+	public abstract double fee(); 			//return the monthly fee
+	
 
 	/**
 	 * 
-	 * @return
 	 */
-	public abstract String getType(); {		//return the account type (class name)
-	}
+	public abstract String getType();		//return the account type (class name)
 	
 	/**
 	 * getHolder gets the holder for the Account.
