@@ -108,7 +108,7 @@ public class BankTeller {
 	 * have to have param about dob, balance, if account already exists, initial deposit, withdrawal amount, database is empty, invalid campus code, minimum for moneymarket,
 	 * invalid command, not a valid amount, missing data for opening account, account closed/opened, account is closed already, account reopoened, deposit - balance updated, 
 	 * deposit - amount cant be 0 or negative, withdraw - balance updated, withdraw - insufficient fund
-	 * 
+	 * Might need to tweak, the errors should be the ones associated with opening an account.
 	 * @param tokens the tokens
 	 * @param dob    the dob
 	 * @param d      the d, instead of date it should be balance
@@ -119,13 +119,7 @@ public class BankTeller {
 	//dob,
 	private void openCheckInput(String[] tokens, Date dob, Date d, Time t, Timeslot ts, Location l) {
 		Date today = new Date();
-		if (/*!withdraw.isValid()*/) {
-			System.out.println("Invalid withdrawal. Withdrawal amount is greater than account balance.");
-			return;
-		}
-		if(/*!deposit.isValid()*/) {
-			System.out.println("");
-		}	
+		
 		if (!dob.isValid()) {
 			System.out.println("Date of birth invalid.");
 			return;
