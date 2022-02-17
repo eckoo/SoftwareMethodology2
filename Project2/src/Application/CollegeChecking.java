@@ -7,6 +7,7 @@ public class CollegeChecking extends Checking {
 	private static final int NEWARK = 1;
 	private static final int CAMDEN = 2;
 	
+	//if account holder has checking account, cannot create College Checking account. each account holder can only have ONE checking account.
 	public CollegeChecking(Profile holder, double balance, int code) {
 		super(holder, balance);
 

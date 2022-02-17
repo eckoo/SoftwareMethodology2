@@ -99,7 +99,13 @@ public class AccountDatabase {
 	}
 	
 	public void print() {
-		
+		System.out.println();
+		System.out.println("*list of accounts in the database*");
+		for (int i = BEGINNING_INDEX; i < this.numAcct; i++) {
+			System.out.println(this.accounts[i].toString());
+		}
+		System.out.println("*end of list.");
+		System.out.println();
 	}
 	
 	public void printByAccountType() {
