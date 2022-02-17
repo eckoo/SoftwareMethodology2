@@ -11,6 +11,11 @@ public class AccountDatabase {
 	private static final int EQUALS = 0;
 	private static final int GROW_AMOUNT = 0;
 	
+	public static final int NOT_FOUND = -1;
+	public static final int CHECK_ADD_CASE_ONE = 1;
+	public static final int CHECK_ADD_CASE_TWO = 2;
+	public static final int CHECK_ADD_CASE_THREE = 3;
+	public static final int CHECK_ADD_OK = 0;
 	//very very similar to schedule
 
 	/**
@@ -114,5 +119,65 @@ public class AccountDatabase {
 	
 	public void printFeeAndInterest() {
 		
+	}
+	
+	/**
+	 * The checkAdd method will check to see if we can add a patient to the list of appointments.
+	 * 
+	 * @param appt Object of type Appointment.
+	 * @return CHECK_ADD_CASE_# based on if the holder, closed status, and balance.
+	 */
+	public int checkAdd(Account account) {
+		for (int i = BEGINNING_INDEX; i < this.numAcct; i++) {
+			if (this.accounts[i].getType().equals(account.getType())) {
+				return CHECK_ADD_CASE_ONE;
+			}
+			/*
+			if (this.accounts[i].getClosed().equals(account.getClosed())
+					&& this.accounts[i].getBalance().equals(account.getBalance())) {
+				return CHECK_ADD_CASE_TWO;
+			}
+			if (this.accounts[i].getSlot().getDate().equals(account.getSlot().getDate())
+					&& this.accounts[i].getHolder().equals(account.getHolder())) {
+				return CHECK_ADD_CASE_THREE;
+			}
+			*/
+		}
+		return CHECK_ADD_OK;
+	}
+
+	/**
+	 * The checkRemove method will check to see if we can remove an account from the list of accounts.
+	 * 
+	 * @param account Object of type Account.
+	 * @return true if the accounts match, false if they do not.
+	 */
+	public boolean checkRemove(Account account) {
+		for (int i = BEGINNING_INDEX; i < this.numAcct; i++) {
+			if (this.accounts[i].equals(account)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * The removeAccount method will remove an account from the list of accounts.
+	 * 
+	 * @param account Object of type Account.
+	 */
+	public void removeAccount(Account account) {
+		Profile holder = account.getHolder();
+		int j = BEGINNING_INDEX;
+		for (int i = BEGINNING_INDEX; i < this.numAppts; i++) {
+			Profile holder2 = this.accounts[i].getHolder();
+			if (!holder.equals(holder2)) {
+				this.accounts[j++] = this.accounts[i];
+			}
+		}
+		for (int k = j; k < this.numAcct; k++) {
+			this.accounts[k] = null;
+		}
+		this.numAcct = j;
 	}
 }

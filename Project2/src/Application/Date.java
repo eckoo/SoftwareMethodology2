@@ -7,7 +7,7 @@ import java.util.Calendar;
  *
  *  @author Kiernan King and Ahmed Alghazwi
  */
-public class Date implements Comparable<Date> {	//copied from Project1, per instructions in document
+public class Date implements Comparable<Date> {	//copied from Project1, per instructions in document, have to go back and import it tho
 	private int year;
 	private int month;
 	private int day;

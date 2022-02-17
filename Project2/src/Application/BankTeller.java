@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class BankTeller {
 	
+	
+	//new > JUnit Test Class
 	private Account account;
 
 	private static final int COMMAND_TOKEN_INDEX = 0;
@@ -14,12 +16,12 @@ public class BankTeller {
 	private static final int PI_COMMAND_TOKEN_COUNT = 1;
 	private static final int UB_COMMAND_TOKEN_COUNT = 4;
 	private static final int Q_COMMAND_TOKEN_COUNT = 1;
-	private static final int B_COMMAND_DOB_TOKEN_INDEX = 1;
-	private static final int B_COMMAND_FNAME_TOKEN_INDEX = 2;
-	private static final int B_COMMAND_LNAME_TOKEN_INDEX = 3;
-	private static final int B_COMMAND_D_TOKEN_INDEX = 4;
-	private static final int B_COMMAND_T_TOKEN_INDEX = 5;
-	private static final int B_COMMAND_L_TOKEN_INDEX = 6;
+	private static final int O_COMMAND_DOB_TOKEN_INDEX = 1;
+	private static final int O_COMMAND_FNAME_TOKEN_INDEX = 2;
+	private static final int O_COMMAND_LNAME_TOKEN_INDEX = 3;
+	private static final int O_COMMAND_D_TOKEN_INDEX = 4;
+	private static final int O_COMMAND_T_TOKEN_INDEX = 5;
+	private static final int O_COMMAND_L_TOKEN_INDEX = 6;
 	private static final int C_COMMAND_DOB_TOKEN_INDEX = 1;
 	private static final int C_COMMAND_FNAME_TOKEN_INDEX = 2;
 	private static final int C_COMMAND_LNAME_TOKEN_INDEX = 3;
@@ -90,17 +92,17 @@ public class BankTeller {
 	}
 	
 	/**
-	 * This is the openAccount(O) method, which will start the process of adding an account to the database.
+	 * This is the openAccount method, which will start the process of adding an account to the database.
 	 * 
 	 * @param tokens the tokens.
 	 */
 	private void openAccount(String[] tokens) {
-		Date dob = new Date(tokens[B_COMMAND_DOB_TOKEN_INDEX]);
-		Date d = new Date(tokens[B_COMMAND_D_TOKEN_INDEX]);
-		Time t = new Time(tokens[B_COMMAND_T_TOKEN_INDEX]);
-		Timeslot ts = new Timeslot(d, t);
-		Location l = Util.stringToLocation(tokens[B_COMMAND_L_TOKEN_INDEX].toUpperCase());
-		openCheckInput(tokens, dob, d, t, ts, l);
+		Date dob = new Date(tokens[O_COMMAND_DOB_TOKEN_INDEX]);
+		Profile profile = new Profile(tokens[O_COMMAND_PROFILE_TOKEN_INDEX]);
+		String type = new String(tokens[O_COMMAND_TYPE_TOKEN_INDEX]);
+		double initialDeposit = new double(token[O_COMMAND_DEPOSIT_TOKEN_INDEX]); //not very sure
+		Location l = Util.stringToLocation(tokens[B_COMMAND_L_TOKEN_INDEX].toUpperCase()); //B_COMMAND_L should prob be O_COMMAND_DEPOSIT
+		openCheckInput(tokens, dob, profile, type, initalDeposit);
 	}
 
 	/**
@@ -117,22 +119,25 @@ public class BankTeller {
 	 * @param l      the l, instead of location it should be 
 	 */
 	//dob,
-	private void openCheckInput(String[] tokens, Date dob, Date d, Time t, Timeslot ts, Location l) {
-		Date today = new Date();
+	private void openCheckInput(String[] tokens, Date dob, Profile profile, String type, double initialDeposit) {
+		
 		
 		if (!dob.isValid()) {
 			System.out.println("Date of birth invalid.");
 			return;
 		}
-		if (!d.isValid() || !d.thisYear()) {
-			System.out.println("Invalid appointment date!");
+		if (dob.compareTo(today) != LESSER) {
+			System.out.println("Invalid date of birth, it is a future date.");
 			return;
 		}
-		if (d.compareTo(today) != GREATER) {
-			System.out.println("AccountDatabase date invalid -> must be a future date.");
+		if (this.type.contains("Money Market") && initialDeposit < 2500) {
+			System.out.println("Minimum of $2500 to open a MoneyMarket account.");
 			return;
 		}
-		if (!t.isValid()) {
+		if(!initialDeposit >= 0) {
+			System.out.println("Initial deposit cannot be 0 or negative.")
+		}
+		if (!) {
 			System.out.println(
 					"Invalid appointment time! Must enter a time between 9:00 and 16:45 with a 15-minute interval.");
 			return;
@@ -141,7 +146,7 @@ public class BankTeller {
 			System.out.println("Invalid location!");
 			return;
 		}
-		openAddAccount(tokens, dob, ts, l);
+		openAddAccount(tokens, dob, profile, l);
 	}
 
 	/**
@@ -153,19 +158,36 @@ public class BankTeller {
 	 * @param l      the l
 	 */
 	private void openAddAccount(String[] tokens, Date dob, Timeslot ts, Location l) {
-		Profile p = new Profile(tokens[B_COMMAND_FNAME_TOKEN_INDEX], tokens[B_COMMAND_LNAME_TOKEN_INDEX], dob);
-		Account a = new Account(p, ts, l);
-		int check = account.checkAdd(a);
-		if (check == Account.CHECK_ADD_OK) {
-			this.account.add(a);
+		Profile profile = new Profile(tokens[B_COMMAND_FNAME_TOKEN_INDEX], tokens[B_COMMAND_LNAME_TOKEN_INDEX], dob);
+		Account account = new Account(profile, ts, l);
+		int check = AccountDatabase.checkAdd(account);
+		if (check == AccountDatabase.CHECK_ADD_OK) {
+			this.account.add(account);
 			System.out.println("Account opened.");
-		} else if (check == Account.CHECK_ADD_CASE_ONE) {
-			System.out.println(holder + "same account (type) is in the database.");
-		} else if (check == Account.CHECK_ADD_CASE_TWO) {
+		} else if (check == AccountDatabase.CHECK_ADD_CASE_ONE) {
+			System.out.println(holder + "same account (type) is in the database."); //have to add case for missing data
+		}
+		/*
+		else if (check == Account.CHECK_ADD_CASE_TWO) {
 			System.out.println("Time slot has been taken at this location.");
 		} else if (check == Account.CHECK_ADD_CASE_THREE) {
 			System.out.println("Same patient cannot book an appointment with the same date.");
 		}
+		*/
+	}
+	
+	/**
+	 * 
+	 */
+	private void checkDeposit(String[] tokens, double initialDeposit) {
+		
+	}
+	
+	/**
+	 * 
+	 */
+	private void checkWithdrawal(String[] tokens, double balance) {
+		
 	}
 
 	/**
@@ -180,13 +202,13 @@ public class BankTeller {
 		Time t = new Time(tokens[C_COMMAND_T_TOKEN_INDEX]);
 		Timeslot ts = new Timeslot(d, t);
 		Location l = Util.stringToLocation(tokens[C_COMMAND_L_TOKEN_INDEX].toUpperCase());
-		Profile p = new Profile(tokens[C_COMMAND_FNAME_TOKEN_INDEX], tokens[C_COMMAND_LNAME_TOKEN_INDEX], dob);
-		Account a = new Account(p, ts, l);
-		if (account.checkRemove(a)) {
-			this.account.close(a);
-			System.out.println("AccountDatabase cancelled.");
+		Profile profile = new Profile(tokens[C_COMMAND_FNAME_TOKEN_INDEX], tokens[C_COMMAND_LNAME_TOKEN_INDEX], dob);
+		Account account = new Account(profile, ts, l);
+		if (account.checkRemove(account)) {
+			this.account.close(account);
+			System.out.println("Account closed.");
 		} else {
-			System.out.println("Not cancelled, appointment does not exist.");
+			System.out.println("Account is closed already.");
 		}
 	}
 

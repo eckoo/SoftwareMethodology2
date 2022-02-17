@@ -3,10 +3,15 @@ package Application;
 //A loyal customer’s account gets additional interest rate 0.15%; that is, annual interest rate will be 0.45% for a loyal customer account.
 public class Savings extends Account {
 
+	protected int isLoyal;
+	private static final int LOYAL = 1;
+	private static final int NON_LOYAL = 0;
+	
 	public Savings(Profile holder, double balance) {
 		this.holder = holder;
 		this.balance = balance;
 		this.type = "Checking";
+		this.loyal = loyal;
 	}
 	
 	@Override
@@ -23,6 +28,15 @@ public class Savings extends Account {
 	@Override
 	public String getType() {
 		return this.type;
+	}
+	
+	public int isLoyal() {
+		if(this.loyal != (LOYAL || NON_LOYAL)) {
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 	@Override
