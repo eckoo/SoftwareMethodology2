@@ -15,11 +15,23 @@ withdrawals exceeds 3 times
  * @author Kiernan King and Ahmed Alghazwi
  *
  */
-public class MoneyMarket extends Savings {
+public class MoneyMarket extends Savings {	//if balance falls below $2500, no longer loyal customer account. by default, loyal customer account.
 
 	public MoneyMarket(Profile holder, double balance) {
 		super(holder, balance);
 		// TODO Auto-generated constructor stub
+	}
+	
+	@Override
+	public double monthlyInterest() {
+		//annual interest in MoneyMarket = 0.8%, monthlyInterest = 0.067%
+		//if loyal customer, annual interest in MoneyMarket = 0.95%, monthlyInterest = 0.079167%
+	}
+
+	@Override
+	public double fee() {
+		//$10 monthly fee waived if balance is >= $2500
+		//monthly fee CANNOT be waived if the number of withdrawals exceeds 3, add counter 
 	}
 	
 	@Override

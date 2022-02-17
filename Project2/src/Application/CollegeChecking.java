@@ -25,11 +25,18 @@ public class CollegeChecking extends Checking {
 		return this.type;
 	}
 	
+	@Override
+	public double monthlyInterest() {
+		//annual interest in checking = 0.1%
+	}
+
+	@Override
+	public double fee() {
+		//$25 monthly fee waived if balance is >= $1000
+	}
+	
 	public void getCampusCode(int code) {
-		if((this.campusCode < NEW_BRUNSWICK) || (this.campusCode > CAMDEN)) { 
-			//throw error
-		}
-		else if(this.campusCode == NEW_BRUNSWICK) {
+		if(this.campusCode == NEW_BRUNSWICK) {
 			code = NEW_BRUNSWICK;
 		}
 		else if(this.campusCode == NEWARK) {

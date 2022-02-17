@@ -11,19 +11,16 @@ public class Checking extends Account {
 	
 	@Override
 	public double monthlyInterest() {
-		// TODO Auto-generated method stub
-		return 0;
+		//annual interest in checking = 0.1%
 	}
 
 	@Override
 	public double fee() {
-		// TODO Auto-generated method stub
-		return 0;
+		//$25 monthly fee waived if balance is >= $1000
 	}
 
 	@Override
 	public String getType() {
-		// TODO Auto-generated method stub
 		return this.type;
 	}
 	

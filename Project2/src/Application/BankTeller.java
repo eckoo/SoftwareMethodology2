@@ -33,8 +33,8 @@ public class BankTeller {
 	private static final int LESSER = -1;
 	
 	public void run() {
-		//System.out.println("Kiosk running. Ready to process transactions.");
-		//System.out.println();
+		System.out.println("Bank Teller is running.");
+		System.out.println();
 		Scanner scanner = new Scanner(System.in);
 		while (true) {
 			String line = Util.readLine(scanner);
@@ -113,12 +113,16 @@ public class BankTeller {
 	 * @param ts     the ts
 	 * @param l      the l
 	 */
+	//dob,
 	private void b2(String[] tokens, Date dob, Date d, Time t, Timeslot ts, Location l) {
 		Date today = new Date();
-		if (!Withdraw.isValid()) {
+		if (!withdraw.isValid()) {
 			System.out.println("Invalid withdrawal. Withdrawal amount is greater than account balance.");
 			return;
 		}
+		if(!deposit.isValid()) {
+			System.out.println("");
+		}	
 		if (dob.compareTo(today) != LESSER) {
 			System.out.println("Date of birth invalid -> it is a future date.");
 			return;
@@ -168,9 +172,9 @@ public class BankTeller {
 	}
 
 	/**
-	 * This is the c method.
+	 * This is the closeAccount method.
 	 * 
-	 * @param tokens the tokens
+	 * @param tokens Object of type String[]
 	 */
 	private void closeAccount(String[] tokens) {
 		Date dob = new Date(tokens[C_COMMAND_DOB_TOKEN_INDEX]);

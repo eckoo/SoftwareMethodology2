@@ -19,7 +19,7 @@ public abstract class Account {
 			if (!this.holder.equals(account.getHolder())) {
 				return false;
 			}
-			if (!(this.closed == account.getClosed())) { //have to check to see how two booleans can be compared
+			if (!(this.closed == account.getClosed())) {
 				return false;
 			}
 			if (this.balance != (account.getBalance())) {
@@ -37,7 +37,7 @@ public abstract class Account {
 	 */
 	@Override
 	public String toString() {
-		return type + holder.toString() + "::Balance " + Double.toString(balance) + "::" + /*location and loyalty member and withdraw/deposit*/;
+		return type + holder.toString() + "::Balance " + Double.toString(balance);
 	}
 	
 	/**

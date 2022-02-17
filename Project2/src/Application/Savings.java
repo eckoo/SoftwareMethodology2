@@ -11,14 +11,13 @@ public class Savings extends Account {
 	
 	@Override
 	public double monthlyInterest() {
-		
-		return 0;
+		//annual interest = 0.3%, monthlyInterest = 0.025%
+		//if loyal customer, annual interest = 0.45%, monthlyInterest = 0.0375%
 	}
 
 	@Override
 	public double fee() {
-		
-		return 0;
+		//$6 monthly fee waived if account balance is >= $300
 	}
 
 	@Override
@@ -29,7 +28,7 @@ public class Savings extends Account {
 	@Override
 	public String toString() {
 		String str = super.toString();
-		return str + "something else";
+		return this.type + str + "something else";
 	}
 
 }
