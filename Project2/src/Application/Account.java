@@ -37,7 +37,7 @@ public abstract class Account {
 	 */
 	@Override
 	public String toString() {
-		return type + holder.toString() + "::Balance " + Double.toString(balance);
+		return type + Profile.toString() + "::Balance " + Double.toString(balance);
 	}
 	
 	/**
