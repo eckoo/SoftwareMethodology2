@@ -119,13 +119,15 @@ public class BankTeller {
 	 * @param l      the l, instead of location it should be 
 	 */
 	//dob,
-	private void openCheckInput(String[] tokens, Date dob, Profile profile, String type, double initialDeposit) {
-		
+	private void openCheckInput(String[] tokens, Date dob, Profile holder, String type, double initialDeposit, boolean closed) {
+		Date today = new Date();
 		
 		if (!dob.isValid()) {
 			System.out.println("Date of birth invalid.");
 			return;
 		}
+		
+		
 		if (dob.compareTo(today) != LESSER) {
 			System.out.println("Invalid date of birth, it is a future date.");
 			return;
@@ -137,16 +139,8 @@ public class BankTeller {
 		if(!initialDeposit >= 0) {
 			System.out.println("Initial deposit cannot be 0 or negative.")
 		}
-		if (!) {
-			System.out.println(
-					"Invalid appointment time! Must enter a time between 9:00 and 16:45 with a 15-minute interval.");
-			return;
-		}
-		if (l == Location.INVALID) {
-			System.out.println("Invalid location!");
-			return;
-		}
-		openAddAccount(tokens, dob, profile, l);
+		
+		openAddAccount(tokens, dob, holder, type, initialDeposit, closed);
 	}
 
 	/**
@@ -187,7 +181,9 @@ public class BankTeller {
 	 * 
 	 */
 	private void checkWithdrawal(String[] tokens, double balance) {
-		
+		if(MoneyMarket.withdrawalCounter > MoneyMarket.WithdrawLimit) {
+			//cannot waive monthly fee
+		}
 	}
 
 	/**
