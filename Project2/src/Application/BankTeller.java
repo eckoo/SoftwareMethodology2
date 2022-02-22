@@ -3,205 +3,239 @@ package Application;
 import java.util.Scanner;
 
 public class BankTeller {
-	
-	
-	//new > JUnit Test Class
-	private Account account;
+	private AccountDatabase accountDatabase;
 
 	private static final int COMMAND_TOKEN_INDEX = 0;
-	private static final int O_COMMAND_TOKEN_COUNT = 7;
-	private static final int C_COMMAND_TOKEN_COUNT = 7;
+	private static final int Q_COMMAND_TOKEN_COUNT = 1;
+	private static final int O_COMMAND_MINIMAL_TOKEN_COUNT = 6;
+	private static final int O_COMMAND_MAXIMAL_TOKEN_COUNT = 7;
+	private static final int C_COMMAND_TOKEN_COUNT = 5;
+	private static final int D_COMMAND_TOKEN_COUNT = 6;
+	private static final int W_COMMAND_TOKEN_COUNT = 6;
 	private static final int P_COMMAND_TOKEN_COUNT = 1;
 	private static final int PT_COMMAND_TOKEN_COUNT = 1;
 	private static final int PI_COMMAND_TOKEN_COUNT = 1;
-	private static final int UB_COMMAND_TOKEN_COUNT = 4;
-	private static final int Q_COMMAND_TOKEN_COUNT = 1;
-	private static final int O_COMMAND_DOB_TOKEN_INDEX = 1;
+	private static final int UB_COMMAND_TOKEN_COUNT = 1;
+	private static final int O_COMMAND_ACCOUNT_TYPE_INDEX = 1;
 	private static final int O_COMMAND_FNAME_TOKEN_INDEX = 2;
 	private static final int O_COMMAND_LNAME_TOKEN_INDEX = 3;
-	private static final int O_COMMAND_D_TOKEN_INDEX = 4;
-	private static final int O_COMMAND_T_TOKEN_INDEX = 5;
-	private static final int O_COMMAND_L_TOKEN_INDEX = 6;
-	private static final int C_COMMAND_DOB_TOKEN_INDEX = 1;
+	private static final int O_COMMAND_DOB_TOKEN_INDEX = 4;
+	private static final int O_COMMAND_DEPOSIT_TOKEN_INDEX = 5;
+	private static final int O_COMMAND_CAMPUS_CODE_TOKEN_INDEX = 6;
+	private static final int O_COMMAND_SAVING_CODE_TOKEN_INDEX = 6;
+	private static final int LESSER = -1;
+	private static final int INVALID_CAMPUS_CODE = -1;
+	private static final int INVALID_SAVING_CODE = -1;
+	private static final int SAVING_CODE_NON_LOYAL = 0;
+	private static final int SAVING_CODE_LOYAL = 1;
+	private static final int C_COMMAND_ACCOUNT_TYPE_TOKEN_INDEX = 1;
 	private static final int C_COMMAND_FNAME_TOKEN_INDEX = 2;
 	private static final int C_COMMAND_LNAME_TOKEN_INDEX = 3;
-	private static final int C_COMMAND_D_TOKEN_INDEX = 4;
-	private static final int C_COMMAND_T_TOKEN_INDEX = 5;
-	private static final int C_COMMAND_L_TOKEN_INDEX = 6;
-	private static final int UB_COMMAND_DOB_TOKEN_INDEX = 1;
-	private static final int UB_COMMAND_FNAME_TOKEN_INDEX = 2;
-	private static final int UB_COMMAND_LNAME_TOKEN_INDEX = 3;
-	private static final int GREATER = 1;
-	private static final int LESSER = -1;
-	
-	public void run() {
+	private static final int C_COMMAND_DOB_TOKEN_INDEX = 4;
+	private static final int D_COMMAND_ACCOUNT_TYPE_TOKEN_INDEX = 1;
+	private static final int D_COMMAND_FNAME_TOKEN_INDEX = 2;
+	private static final int D_COMMAND_LNAME_TOKEN_INDEX = 3;
+	private static final int D_COMMAND_DOB_TOKEN_INDEX = 4;
+	private static final int D_COMMAND_AMOUNT_TOKEN_INDEX = 5;
+	private static final int W_COMMAND_ACCOUNT_TYPE_TOKEN_INDEX = 1;
+	private static final int W_COMMAND_FNAME_TOKEN_INDEX = 2;
+	private static final int W_COMMAND_LNAME_TOKEN_INDEX = 3;
+	private static final int W_COMMAND_DOB_TOKEN_INDEX = 4;
+	private static final int W_COMMAND_AMOUNT_TOKEN_INDEX = 5;
+	private static final int NO_TOKENS = 0;
+	private static final double ZERO_AMOUNT = 0;
+
+	/**
+	 * This is the BankTeller constructor.
+	 */
+	public BankTeller() {
+		this.accountDatabase = new AccountDatabase();
+	}
+
+	/**
+	 * This is the main method.
+	 * @param args Object of type String[].
+	 */
+	public static void main(String[] args) {
+		new BankTeller().run();
+	}
+
+	/**
+	 * This is the run method.
+	 */
+	private void run() {
+		System.out.println();
 		System.out.println("Bank Teller is running.");
 		System.out.println();
 		Scanner scanner = new Scanner(System.in);
 		while (true) {
-			String line = Util.readLine(scanner);
+			String line = Util.readLine(scanner).replace('\t', ' ');
 			String[] tokens = Util.tokenize(line, ' ');
 			if (handleTokens(tokens)) {
-				System.out.println();
 				break;
 			}
 		}
 		scanner.close();
 	}
-	
+
 	/**
-	 * This is the handleTokens method.
-	 * 
-	 * @param tokens The tokens.
-	 * @return true if ended.
+	 * This is the handleTokens method, which handles the user input command.
+	 * @param tokens Object of type String[].
+	 * @return true if ended, false if no tokens inputted.
 	 */
 	private boolean handleTokens(String[] tokens) {
 		int n = tokens.length;
-		if ((n == O_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("O"))) {
-			openAccount(tokens);
+		if (n == NO_TOKENS) {
+			return false;
 		}
-		else if ((n == C_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("C"))) { //closeAccount sets account to close, balance to 0, isLoyalAccount to false. Remain
-			closeAccount(tokens);																//in database and can be reopened later
-		}
-		else if ((n == D_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("D"))) { //D calls the deposit
-			AccountDatabase.deposit(tokens);																
-		}
-		else if ((n == W_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("W"))) { //W calls the withdraw
-			AccountDatabase.withdraw(tokens);																
-		}
-		else if ((n == P_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("P"))) { //prints all accounts in database in current order
-			AccountDatabase.print();
-		}
-		else if ((n == PT_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("PT"))) { //prints all accounts in database ordered by account type
-			AccountDatabase.printByAccountType();
-		}
-		else if ((n == PI_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("PI"))) { //prints all accounts in database with calculated fees and monthly interests
-			AccountDatabase.printFeeAndInterest();
-		}
-		else if ((n == UB_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("UB"))) {// UB updates balances for all accounts with calculated fees and monthly interests
-			cp(tokens);																		   // and displays all the accounts in the database with the updated balances.
-		}
-		else if ((n == Q_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("Q"))) {
-			System.out.println("Bank Teller is terminated.");
+		if (tokens[COMMAND_TOKEN_INDEX].equals("O")) {
+			OA(tokens);
+		} else if (tokens[COMMAND_TOKEN_INDEX].equals("C")) {
+			if (n < C_COMMAND_TOKEN_COUNT) {
+				System.out.println("Missing data for opening an account.");
+			} else {
+				C(tokens);
+			}
+		} else if ((n == D_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("D"))) {
+			D(tokens);
+		} else if ((n == W_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("W"))) {
+			W(tokens);
+		} else if ((n == P_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("P"))) {
+			P(tokens);
+		} else if ((n == PT_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("PT"))) {
+			PT(tokens);
+		} else if ((n == PI_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("PI"))) {
+			PI(tokens);
+		} else if ((n == UB_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("UB"))) {
+			UB(tokens);
+		} else if ((n == Q_COMMAND_TOKEN_COUNT) && (tokens[COMMAND_TOKEN_INDEX].equals("Q"))) {
+			System.out.println("Bank Teller is terminated. ");
 			return true;
-		}
-		else {
+		} else {
 			System.out.println("Invalid command!");
 		}
 		return false;
 	}
-	
-	/**
-	 * This is the openAccount method, which will start the process of adding an account to the database.
-	 * 
-	 * @param tokens the tokens.
-	 */
-	private void openAccount(String[] tokens) {
-		Date dob = new Date(tokens[O_COMMAND_DOB_TOKEN_INDEX]);
-		Profile profile = new Profile(tokens[O_COMMAND_PROFILE_TOKEN_INDEX]);
-		String type = new String(tokens[O_COMMAND_TYPE_TOKEN_INDEX]);
-		double initialDeposit = new double(token[O_COMMAND_DEPOSIT_TOKEN_INDEX]); //not very sure
-		Location l = Util.stringToLocation(tokens[B_COMMAND_L_TOKEN_INDEX].toUpperCase()); //B_COMMAND_L should prob be O_COMMAND_DEPOSIT
-		openCheckInput(tokens, dob, profile, type, initalDeposit);
-	}
 
 	/**
-	 * This is the openCheckInput method. Checks to see if the account trying to be opened is input correctly.
-	 * have to have param about dob, balance, if account already exists, initial deposit, withdrawal amount, database is empty, invalid campus code, minimum for moneymarket,
-	 * invalid command, not a valid amount, missing data for opening account, account closed/opened, account is closed already, account reopoened, deposit - balance updated, 
-	 * deposit - amount cant be 0 or negative, withdraw - balance updated, withdraw - insufficient fund
-	 * Might need to tweak, the errors should be the ones associated with opening an account.
-	 * @param tokens the tokens
-	 * @param dob    the dob
-	 * @param d      the d, instead of date it should be balance
-	 * @param t      the t, instead of time it should be 
-	 * @param ts     the ts, instead of timeslot it should be 
-	 * @param l      the l, instead of location it should be 
+	 * This is the OA method, which checks to see if we can open the account.
+	 * @param tokens Object of type String[]
 	 */
-	//dob,
-	private void openCheckInput(String[] tokens, Date dob, Profile holder, String type, double initialDeposit, boolean closed) {
+	private void OA(String[] tokens) {
+		if (tokens.length < O_COMMAND_MINIMAL_TOKEN_COUNT) {
+			System.out.println("Missing data for opening an account.");
+			return;
+		}
+		String accountType = tokens[O_COMMAND_ACCOUNT_TYPE_INDEX];
+		if (accountType.equals("CC") || accountType.equals("S")) {
+			if (tokens.length != O_COMMAND_MAXIMAL_TOKEN_COUNT) {
+				System.out.println("Missing data for opening an account.");
+				return;
+			}
+		} else {
+			if (tokens.length != O_COMMAND_MINIMAL_TOKEN_COUNT) {
+				System.out.println("Invalid command!");
+				return;
+			}
+		}
+		Date dob = new Date(tokens[O_COMMAND_DOB_TOKEN_INDEX]);
 		Date today = new Date();
-		
 		if (!dob.isValid()) {
 			System.out.println("Date of birth invalid.");
 			return;
 		}
-		
-		
+		OB(tokens, accountType, dob, today);
+	}
+
+	/**
+	 * This is the OB method, which takes care of additional edge cases for opening an account.
+	 * @param tokens Object of type String[], accountType Object of type String, dob Object of type Date, today Object of type Date.
+	 */
+	private void OB(String[] tokens, String accountType, Date dob, Date today) {
 		if (dob.compareTo(today) != LESSER) {
-			System.out.println("Invalid date of birth, it is a future date.");
+			System.out.println("Date of birth invalid.");
 			return;
 		}
-		if (this.type.contains("Money Market") && initialDeposit < 2500) {
+		String depositString = tokens[O_COMMAND_DEPOSIT_TOKEN_INDEX];
+		if (!Util.isDouble(depositString)) {
+			System.out.println("Not a valid amount.");
+			return;
+		}
+		double deposit = Double.parseDouble(depositString);
+		if (deposit <= ZERO_AMOUNT) {
+			System.out.println("Initial deposit cannot be 0 or negative.");
+			return;
+		}
+		int campusCode = INVALID_CAMPUS_CODE;
+		int savingCode = INVALID_SAVING_CODE;
+		if (accountType.equals("CC")) {
+			String campusCodeString = tokens[O_COMMAND_CAMPUS_CODE_TOKEN_INDEX];
+			if (!Util.isInteger(campusCodeString)) {
+				System.out.println("Invalid campus code.");
+				return;
+			}
+			campusCode = Integer.parseInt(campusCodeString);
+			if ((campusCode != CollegeChecking.NEW_BRUNSWICK) && (campusCode != CollegeChecking.NEWARK)
+					&& (campusCode != CollegeChecking.CAMDEN)) {
+				System.out.println("Invalid campus code.");
+				return;
+			}
+		}
+		OC(tokens, accountType, dob, deposit, campusCode, savingCode);
+	}
+
+	/**
+	 * This is the OC method, which takes care of some additional edge cases for opening an account.
+	 * @param tokens Object of type String[], accountType of type String, dob Object of type Date, deposit Object of type double
+	 * @param campusCode Object of type int, savingCode Object of type int.
+	 */
+	private void OC(String[] tokens, String accountType, Date dob, double deposit, int campusCode, int savingCode) {
+		if (accountType.equals("S")) {
+			String savingCodeString = tokens[O_COMMAND_SAVING_CODE_TOKEN_INDEX];
+			if (!Util.isInteger(savingCodeString)) {
+				System.out.println("Invalid saving code.");
+				return;
+			}
+			savingCode = Integer.parseInt(savingCodeString);
+			if ((savingCode != SAVING_CODE_NON_LOYAL) && (savingCode != SAVING_CODE_LOYAL)) {
+				System.out.println("Invalid saving code.");
+				return;
+			}
+		}
+		if (accountType.equals("MM") && (deposit < MoneyMarket.MINIMAL_LOYAL_BALANCE)) {
 			System.out.println("Minimum of $2500 to open a MoneyMarket account.");
 			return;
 		}
-		if(!initialDeposit >= 0) {
-			System.out.println("Initial deposit cannot be 0 or negative.")
-		}
-		
-		openAddAccount(tokens, dob, holder, type, initialDeposit, closed);
-	}
-
-	/**
-	 * This is the openAddAccount method, which checks to see if we can add an account to the database, and does so if we can.
-	 * 
-	 * @param tokens the tokens
-	 * @param dob    the dob
-	 * @param ts     the ts
-	 * @param l      the l
-	 */
-	private void openAddAccount(String[] tokens, Date dob, Timeslot ts, Location l) {
-		Profile profile = new Profile(tokens[B_COMMAND_FNAME_TOKEN_INDEX], tokens[B_COMMAND_LNAME_TOKEN_INDEX], dob);
-		Account account = new Account(profile, ts, l);
-		int check = AccountDatabase.checkAdd(account);
-		if (check == AccountDatabase.CHECK_ADD_OK) {
-			this.account.add(account);
+		Profile profile = new Profile(tokens[O_COMMAND_FNAME_TOKEN_INDEX], tokens[O_COMMAND_LNAME_TOKEN_INDEX], dob);
+		Account account = createAccount(accountType, profile, campusCode, savingCode);
+		int check = accountDatabase.checkOpen(account);
+		if (check == AccountDatabase.OPEN_OK) {
+			accountDatabase.open(account);
+			account.deposit(deposit);
 			System.out.println("Account opened.");
-		} else if (check == AccountDatabase.CHECK_ADD_CASE_ONE) {
-			System.out.println(holder + "same account (type) is in the database."); //have to add case for missing data
-		}
-		/*
-		else if (check == Account.CHECK_ADD_CASE_TWO) {
-			System.out.println("Time slot has been taken at this location.");
-		} else if (check == Account.CHECK_ADD_CASE_THREE) {
-			System.out.println("Same patient cannot book an appointment with the same date.");
-		}
-		*/
-	}
-	
-	/**
-	 * 
-	 */
-	private void checkDeposit(String[] tokens, double initialDeposit) {
-		
-	}
-	
-	/**
-	 * 
-	 */
-	private void checkWithdrawal(String[] tokens, double balance) {
-		if(MoneyMarket.withdrawalCounter > MoneyMarket.WithdrawLimit) {
-			//cannot waive monthly fee
+		} else if (check == AccountDatabase.OPEN_REOPEN_OK) {
+			account = accountDatabase.getAccount(account);
+			account.closed = false;
+			if (accountType.equals("CC")) {
+				((CollegeChecking) account).campusCode = campusCode;
+			}
+			account.deposit(deposit);
+			System.out.println("Account reopened.");
+		} else {
+			System.out.println(profile.toString() + " same account(type) is in the database.");
 		}
 	}
 
 	/**
-	 * This is the closeAccount method.
-	 * 
-	 * @param tokens Object of type String[]
+	 * This is the C method, which deals with closing an account.
+	 * @param tokens Object of type String[].
 	 */
-	private void closeAccount(String[] tokens) {
-		//instead of dob, date, and timeslot it should be holder (contains fname, lname, dob), closed, and balance
+	private void C(String[] tokens) {
+		String accountType = tokens[C_COMMAND_ACCOUNT_TYPE_TOKEN_INDEX];
 		Date dob = new Date(tokens[C_COMMAND_DOB_TOKEN_INDEX]);
-		Date d = new Date(tokens[C_COMMAND_D_TOKEN_INDEX]);
-		Time t = new Time(tokens[C_COMMAND_T_TOKEN_INDEX]);
-		Timeslot ts = new Timeslot(d, t);
-		Location l = Util.stringToLocation(tokens[C_COMMAND_L_TOKEN_INDEX].toUpperCase());
 		Profile profile = new Profile(tokens[C_COMMAND_FNAME_TOKEN_INDEX], tokens[C_COMMAND_LNAME_TOKEN_INDEX], dob);
-		Account account = new Account(profile, ts, l);
-		if (account.checkRemove(account)) {
-			this.account.close(account);
+		Account account = createAccount(accountType, profile, INVALID_CAMPUS_CODE, INVALID_SAVING_CODE);
+		if (this.accountDatabase.close(account)) {
 			System.out.println("Account closed.");
 		} else {
 			System.out.println("Account is closed already.");
@@ -209,19 +243,119 @@ public class BankTeller {
 	}
 
 	/**
-	 * This is the cp(UB) method.
-	 * 
-	 * @param tokens the tokens.
+	 * This is the D method, which deals with depositing into a given account.
+	 * @param tokens Object of type String[].
 	 */
-	private void cp(String[] tokens) {
-		Date dob = new Date(tokens[UB_COMMAND_DOB_TOKEN_INDEX]);
-		Profile p = new Profile(tokens[UB_COMMAND_FNAME_TOKEN_INDEX], tokens[UB_COMMAND_LNAME_TOKEN_INDEX], dob);
-		AccountDatabase a = new AccountDatabase(p, null, null);
-		account.close(a);
-		System.out.println("All appointments for " + p.toString() + " have been cancelled.");
-	}
-	
-	//have to write method for checking to see if input is valid/invalid, especially campuscode
-}
+	private void D(String[] tokens) {
+		String accountType = tokens[D_COMMAND_ACCOUNT_TYPE_TOKEN_INDEX];
+		Date dob = new Date(tokens[D_COMMAND_DOB_TOKEN_INDEX]);
+		String fname = tokens[D_COMMAND_FNAME_TOKEN_INDEX];
+		String lname = tokens[D_COMMAND_LNAME_TOKEN_INDEX];
+		String amountString = tokens[D_COMMAND_AMOUNT_TOKEN_INDEX];
+		if (!Util.isDouble(amountString)) {
+			System.out.println("Not a valid amount.");
+			return;
+		}
+		double amount = Double.parseDouble(amountString);
+		if (amount <= ZERO_AMOUNT) {
+			System.out.println("Deposit - amount cannot be 0 or negative.");
+			return;
+		}
+		Profile profile = new Profile(fname, lname, dob);
+		Account account = createAccount(accountType, profile, INVALID_CAMPUS_CODE, INVALID_SAVING_CODE);
+		account.deposit(amount);
+		if (this.accountDatabase.getAccount(account) == null) {
+			System.out.println(fname + " " + lname + " " + dob + " " + account.getType().replace
+					("Money Market Savings", "Money Market") + " is not in the database.");
+		} else {
+			this.accountDatabase.deposit(account);
+			System.out.println("Deposit - balance updated.");
+		}
 
+	}
+
+	/**
+	 * This is the W method, which deals with withdrawing from a certain account.
+	 * @param tokens Object of type String[].
+	 */
+	private void W(String[] tokens) {
+		String accountType = tokens[W_COMMAND_ACCOUNT_TYPE_TOKEN_INDEX];
+		Date dob = new Date(tokens[W_COMMAND_DOB_TOKEN_INDEX]);
+		String fname = tokens[W_COMMAND_FNAME_TOKEN_INDEX];
+		String lname = tokens[W_COMMAND_LNAME_TOKEN_INDEX];
+		String amountString = tokens[W_COMMAND_AMOUNT_TOKEN_INDEX];
+		if (!Util.isDouble(amountString)) {
+			System.out.println("Not a valid amount.");
+			return;
+		}
+		double amount = Double.parseDouble(amountString);
+		if (amount <= ZERO_AMOUNT) {
+			System.out.println("Withdraw - amount cannot be 0 or negative.");
+			return;
+		}
+		Profile profile = new Profile(fname, lname, dob);
+		Account account = createAccount(accountType, profile, INVALID_CAMPUS_CODE, INVALID_SAVING_CODE);
+		account.deposit(amount);
+		if (this.accountDatabase.getAccount(account) == null) {
+			System.out.println(fname + " " + lname + " " + dob + " " + account.getType().replace
+					("Money Market Savings", "Money Market") + " is not in the database.");
+		} else {
+			if (this.accountDatabase.withdraw(account)) {
+				System.out.println("Withdraw - balance updated.");
+			} else {
+				System.out.println("Withdraw - insufficient fund.");
+			}
+		}
+	}
+
+	/**
+	 * This is the P method, which deals with displaying all the accounts in the database in the current order.
+	 * @param tokens Object of type String[].
+	 */
+	private void P(String[] tokens) {
+		this.accountDatabase.print();
+	}
+
+	/**
+	 * This is the PT method, which deals with displaying all the accounts in the database, ordered by account type..
+	 * @param tokens Object of type String[].
+	 */
+	private void PT(String[] tokens) {
+		this.accountDatabase.printByAccountType();
+	}
+
+	/**
+	 * This is the PI method, which deals with displaying all the account in the database, with calculated fees and monthly interests.
+	 * @param tokens Object of type String[].
+	 */
+	private void PI(String[] tokens) {
+		this.accountDatabase.printFeeAndInterest();
+	}
+
+	/**
+	 * This is the UB method, which deals displaying all the accounts in the database with updated balances. 
+	 * @param tokens Object of type String[].
+	 */
+	private void UB(String[] tokens) {
+		this.accountDatabase.updateBalance();
+	}
+
+	/**
+	 * This is the createAccount method, which designates what type of account will be made.
+	 * @param accountType Object of type String, profile Object of type Profile, campusCode Object of type int, savingCode Object of type int.
+	 * @return the account.
+	 */
+	private Account createAccount(String accountType, Profile profile, int campusCode, int savingCode) {
+		Account account = null;
+		if (accountType.equals("C")) {
+			account = new Checking(profile);
+		} else if (accountType.equals("CC")) {
+			account = new CollegeChecking(profile, campusCode);
+		} else if (accountType.equals("S")) {
+			account = new Savings(profile, savingCode == SAVING_CODE_LOYAL);
+		} else if (accountType.equals("MM")) {
+			account = new MoneyMarket(profile);
+		} 
+		return account;
+	}
 }

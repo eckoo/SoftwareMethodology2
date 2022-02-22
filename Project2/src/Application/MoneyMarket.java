@@ -17,26 +17,22 @@ withdrawals exceeds 3 times
  */
 public class MoneyMarket extends Savings {	//if balance falls below $2500, no longer loyal customer account. by default, loyal customer account.
 
-	private static final int LOYAL = 1;
-	private static final int NON_LOYAL = 0;
-	private static final int withdrawalCounter = 0;
-	private static final int WithdrawLimit = 3;
-	private static final int MinimumBalance = 2500;
-	private static final double moneyMarketMonthlyInterest = 0.1;
-	private static final double moneyMarketMonthlyFee = 10.00;
-	private static final double moneyMarketMonthlyFeeWaived = 0.00;
-	private static final double moneyMarketWaivedMinimumBalance = 2500;
-	private static final double moneyMarketLoyalMonthlyInterest = 0.079;
-	private static final double moneyMarketNonLoyalMonthlyInterest = 0.067;
+	public static final int MINIMAL_LOYAL_BALANCE = 2500;
+	
+	protected int withdrawl;
+
+	private static final double NORMAL_ANNUAL_INTEREST_RATE = 0.008;
+	private static final double LOYAL_ANNUAL_INTEREST_RATE = 0.0095;
+	private static final int NUM_MONTHS_IN_YEAR = 12;
+	private static final double WAIVED = 0;
+	private static final double FEE = 10;
 	
 	/**
 	 * This is the MoneyMarket constructor method.
 	 * @param holder Object of type Profile, balance Object of type double.
 	 */
 	public MoneyMarket(Profile holder, double balance) {
-		super(holder, balance);
-		this.type = "Money Market";
-		this.loyal = LOYAL;
+		super(holder, true);
 	}
 	
 	/**
@@ -45,12 +41,8 @@ public class MoneyMarket extends Savings {	//if balance falls below $2500, no lo
 	 */
 	@Override
 	public double monthlyInterest() {
-		if(isLoyal()) {
-			return moneyMarketLoyalMonthlyInterest;
-		}
-		else {
-			return moneyMarketNonLoyalMonthlyInterest;
-		}
+		double annualInterestRate = isLoyal() ? LOYAL_ANNUAL_INTEREST_RATE : NORMAL_ANNUAL_INTEREST_RATE;
+		return this.balance * annualInterestRate / NUM_MONTHS_IN_YEAR;
 		//annual interest in MoneyMarket = 0.8%, monthlyInterest = 0.067%
 		//if loyal customer, annual interest in MoneyMarket = 0.95%, monthlyInterest = 0.079167%
 	}
@@ -62,13 +54,12 @@ public class MoneyMarket extends Savings {	//if balance falls below $2500, no lo
 	@Override
 	public double fee() {
 		//$10 monthly fee waived if balance is >= $2500
-		if(balance < moneyMarketWaivedMinimumBalance) {
-			return moneyMarketMonthlyFee;
+		if (isLoyal()) {
+			return WAIVED;
 		}
 		else {
-			return moneyMarketMonthlyFeeWaived;
+			return FEE;
 		}
-		withdrawalCounter++
 	}
 	
 	/**
@@ -77,8 +68,7 @@ public class MoneyMarket extends Savings {	//if balance falls below $2500, no lo
 	 */
 	@Override
 	public String toString() {
-		String str = super.toString();
-		return str + "something else";
+		return super.toString() + "::withdrawl: " + withdrawl;
 	}
 	
 	/**
@@ -97,5 +87,18 @@ public class MoneyMarket extends Savings {	//if balance falls below $2500, no lo
 	public String getType() {
 		return this.type;
 	}
-
+	
+	/**
+	 * The withdraw method keeps count of how many times a withdraw has been made from an account.
+	 * @param amount Object of type double.
+	 * @return false if balance is less than minimum loyal balance.
+	 */
+	@Override
+	public void withdraw(double amount) {
+		super.withdraw(amount);
+		withdrawl++;
+		if (this.balance < MINIMAL_LOYAL_BALANCE) {
+			this.loyal = false;
+		}
+	}
 }

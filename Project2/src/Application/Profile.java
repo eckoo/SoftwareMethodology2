@@ -26,47 +26,28 @@ public class Profile {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Profile) {
-			Profile profile = (Profile) obj;
-			if (!this.fname.equals(profile.fname)) {
-				return false;
-			}
-			if (!this.lname.equals(profile.lname)) {
-				return false;
-			}
-			if (!this.dob.equals(profile.dob)) {
-				return false;
-			}
-			return true;
+		if (!(obj instanceof Profile)) {
+			return false;
 		}
-		return false;
+		Profile profile = (Profile) obj;
+		if (!this.fname.toLowerCase().equals(profile.fname.toLowerCase())) {
+			return false;
+		}
+		if (!this.lname.toLowerCase().equals(profile.lname.toLowerCase())) {
+			return false;
+		}
+		if (!this.dob.equals(profile.dob)) {
+			return false;
+		}
+		return true;
 	}
 	
 	/**
 	 * This is the toString method.
-	 * 
 	 * @return the string representation of the profile.
 	 */
 	@Override
 	public String toString() {
-		return fname + " " + lname + ", DOB: " + dob.toString();
-	}
-
-	/**
-	 * This is the compareTo method.
-	 * 
-	 * @param profile Object of type Profile.
-	 * @return what the contract of compareTo is supposed to output.
-	 */
-	public int compareTo(Profile profile) {
-		int lastNameCompare = this.lname.compareTo(profile.lname);
-		if (lastNameCompare != EQUALS) {
-			return lastNameCompare;
-		}
-		int firstNameCompare = this.fname.compareTo(profile.fname);
-		if (firstNameCompare != EQUALS) {
-			return firstNameCompare;
-		}
-		return this.dob.compareTo(profile.dob);
+		return this.fname + " " + this.lname + ", DOB: " + this.dob.toString();
 	}
 }

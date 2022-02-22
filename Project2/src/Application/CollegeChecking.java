@@ -6,25 +6,24 @@ package Application;
  * @author Kiernan King and Ahmed Alghazwi
  */
 public class CollegeChecking extends Checking {
+	public static final int NEW_BRUNSWICK = 0;
+	public static final int NEWARK = 1;
+	public static final int CAMDEN = 2;
+	
 	protected int campusCode;
-	private static final int NEW_BRUNSWICK = 0;
-	private static final int NEWARK = 1;
-	private static final int CAMDEN = 2;
-	private static final double collegeCheckingMonthlyInterest = 0.1;
-	private static final double collegeCheckingMonthlyFee = 25.00;
-	private static final double collegeCheckingMonthlyFeeWaived = 0.00;
-	private static final double collegeCheckingWaivedMinimumBalance = 1000;
+
+	private static final double ANNUAL_INTEREST_RATE = 0.0025;
+	private static final int NUM_MONTHS_IN_YEAR = 12;
+	private static final double WAIVED = 0;
 	//must provide campus code
 	//if account holder has checking account, cannot create College Checking account. each account holder can only have ONE checking account.
 	/**
 	 * This is the CollegeChecking Constructor method.
 	 * @param holder Object of type Profile, balance Object of type double, code Object of type int.
 	 */
-	public CollegeChecking(Profile holder, double balance, int code) {
-		super(holder, balance);
-
-		this.type = "College Checking";
-		this.campusCode = code;
+	public CollegeChecking(Profile holder, int campusCode) {
+		super(holder);
+		this.campusCode = campusCode;
 	}
 
 	/**
@@ -33,8 +32,19 @@ public class CollegeChecking extends Checking {
 	 */
 	@Override
 	public String toString() {
-		String str = super.toString();
-		return this.type + "::" + holder + "::" + balance + "::" + this.campusCode;
+		String campus = null;
+		switch (campusCode) {
+		case NEW_BRUNSWICK:
+			campus = "NEW_BRUNSWICK";
+			break;
+		case NEWARK:
+			campus = "NEWARK";
+			break;
+		case CAMDEN:
+			campus = "CAMDEN";
+			break;
+		}
+		return super.toString() + "::" + campus;
 	}
 	
 	/**
@@ -43,7 +53,7 @@ public class CollegeChecking extends Checking {
 	 */
 	@Override
 	public String getType() {
-		return this.type;
+		return COLLEGE_CHECKING;
 	}
 	
 	/**
@@ -52,7 +62,7 @@ public class CollegeChecking extends Checking {
 	 */
 	@Override
 	public double monthlyInterest() {
-		return collegeCheckingMonthlyInterest;
+		return this.balance * ANNUAL_INTEREST_RATE / NUM_MONTHS_IN_YEAR;
 		//annual interest in checking = 0.1%
 	}
 
@@ -62,20 +72,6 @@ public class CollegeChecking extends Checking {
 	 */
 	@Override
 	public double fee() {
-		if(balance < collegeCheckingWaivedMinimumBalance) {
-			return collegeCheckingMonthlyFee;
-		}
-		else {
-			return collegeCheckingMonthlyFeeWaived;
-		}
-		//$25 monthly fee waived if balance is >= $1000
-	}
-	
-	/**
-	 * getCampusCode is a constructor method.
-	 * @return this.campusCode = [0 = NEW_BRUNSWICK, 1 = NEWARK, 2 = CAMDEN]
-	 */
-	public int getCampusCode() {
-		return this.campusCode;
+		return WAIVED;
 	}
 }

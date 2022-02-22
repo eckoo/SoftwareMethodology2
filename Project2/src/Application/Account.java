@@ -1,11 +1,13 @@
 package Application;
 
 public abstract class Account {
+	public static final String COLLEGE_CHECKING = "College Checking";
+	public static final String MONEY_MARKET = "Money Market Savings";
+	public static final String CHECKING = "Checking";
+	public static final String SAVINGS = "Savings";
 	protected Profile holder;
 	protected boolean closed;
 	protected double balance;
-	protected String type;
-	//maybe check account class
 	
 	/**
 	 * equals compares two accounts.
@@ -14,20 +16,17 @@ public abstract class Account {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Account) {
-			Account account = (Account) obj;
-			if (!this.holder.equals(account.getHolder())) {
-				return false;
-			}
-			if (!(this.closed == account.getClosed())) {
-				return false;
-			}
-			if (this.balance != (account.getBalance())) {
-				return false;
-			}
-			return true;
+		if (!(obj instanceof Account)) {
+			return false;
 		}
-		return false;
+		Account account = (Account) obj;
+		if (!this.getType().equals(account.getType())) {
+			return false;
+		}
+		if (!this.getHolder().equals(account.getHolder())) {
+			return false;
+		}
+		return true;
 	}
 	
 	/**
@@ -37,7 +36,8 @@ public abstract class Account {
 	 */
 	@Override
 	public String toString() {
-		return type + Profile.toString() + "::Balance " + Double.toString(balance);
+		return this.getType() + "::" + this.holder.toString() + "::Balance $" + (Util.moneyToString(this.balance))
+				+ "" + (closed ? "::CLOSED" : "");
 	}
 	
 	/**
@@ -45,7 +45,7 @@ public abstract class Account {
 	 * @param amount Object of type Double.
 	 */
 	public void withdraw(double amount) {
-		balance -= amount;
+		this.balance -= amount;
 	}
 	
 	/**
@@ -53,23 +53,23 @@ public abstract class Account {
 	 * @param amount Object of type Double.
 	 */
 	public void deposit(double amount) {
-		balance += amount;
+		this.balance += amount;
 	}
 	
 	/**
-	 * 
+	 * monthlyInterest returns the monthly interest.
 	 */
 	public abstract double monthlyInterest();  //return the monthly interest
 	
 	
 	/**
-	 * 
+	 * fee returns the monthly fee.
 	 */
 	public abstract double fee(); 			//return the monthly fee
 	
 
 	/**
-	 * 
+	 * getType returns the account type.
 	 */
 	public abstract String getType();		//return the account type (class name)
 	
@@ -82,19 +82,10 @@ public abstract class Account {
 	}
 	
 	/**
-	 * getClosed gets the closed status for the Account.
-	 * @return object of type boolean for the Account.
-	 */
-	public boolean getClosed() {
-		return this.closed;
-	}
-	
-	/**
 	 * getBalance gets the balance for the Account.
 	 * @return object of type double for the Account.
 	 */
 	public double getBalance() {
 		return this.balance;
 	}
-	
 }

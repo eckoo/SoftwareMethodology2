@@ -7,19 +7,18 @@ package Application;
  */
 public class Checking extends Account {
 
-	private static final double checkingMonthlyInterest = 0.1;
-	private static final double checkingMonthlyFee = 25;
-	private static final double checkingMonthlyFeeWaived = 0;
-	private static final double checkingMinimumBalance = 1000;
+	private static final double MINIMAL_BALANCE = 1000;
+	private static final double FEE = 25;
+	private static final double WAIVED = 0;
+	private static final double ANNUAL_INTEREST_RATE = 0.001;
+	private static final int NUM_MONTHS_IN_YEAR = 12;
 	
 	/**
 	 * This is the Checking constructor method.
 	 * @param holder Object of type Profile, balance Object of type double.
 	 */
 	public Checking(Profile holder, double balance) {
-		this.holder = holder;
-		this.balance = balance;
-		this.type = "Checking";
+		super(holder);
 	}
 	
 	/**
@@ -28,8 +27,7 @@ public class Checking extends Account {
 	 */
 	@Override
 	public double monthlyInterest() {
-		return checkingMonthlyInterest;
-		//annual interest in checking = 0.1%
+		return this.balance * ANNUAL_INTEREST_RATE / NUM_MONTHS_IN_YEAR;
 	}
 	
 	/**
@@ -38,11 +36,11 @@ public class Checking extends Account {
 	 */
 	@Override
 	public double fee() {
-		if(balance < checkingMinimumBalance) {
-			return checkingMonthlyFee;
+		if (this.balance < MINIMAL_BALANCE) {
+			return FEE;
 		}
 		else {
-			return checkingMonthlyFeeWaived;
+			return WAIVED;
 		}
 		//$25 monthly fee waived if balance is >= $1000
 	}
@@ -53,7 +51,7 @@ public class Checking extends Account {
 	 */
 	@Override
 	public String getType() {
-		return this.type;
+		return CHECKING;
 	}
 	
 	/**
