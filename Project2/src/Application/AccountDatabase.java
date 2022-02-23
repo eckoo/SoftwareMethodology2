@@ -9,8 +9,19 @@ public class AccountDatabase {
 	private Account[] accounts;
 	private int numAcct;
 
+	/**
+	 * Creates a value that is returned to let us know we can successfully open an account.
+	 */
 	public static final int OPEN_OK = 0;
+	
+	/**
+	 * Creates a value that is returned to let us know we can successfully reopen an account.
+	 */
 	public static final int OPEN_REOPEN_OK = 1;
+	
+	/**
+	 * Creates a value that is returned to let us know we cannot open an account.
+	 */
 	public static final int OPEN_FAILED = 2;
 
 	private static final int DEFAULT_CAPACITY = 10086;

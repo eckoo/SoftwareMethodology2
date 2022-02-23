@@ -38,7 +38,8 @@ public class Util {
 
 	/**
 	 * This is the tokenize method.
-	 * @param line Object of type String, separator Object of type char.
+	 * @param line Object of type String.
+	 * @param separator Object of type char.
 	 * @return the tokenization result.
 	 */
 	public static String[] tokenize(String line, char separator) {
@@ -58,7 +59,8 @@ public class Util {
 
 	/**
 	 * This is the tokenizeInteger method.
-	 * @param line Object of type String, separator Object of type char.
+	 * @param line Object of type String.
+	 * @param separator Object of type char.
 	 * @return the tokenization result.
 	 */
 	public static int[] tokenizeIntegers(String line, char separator) {

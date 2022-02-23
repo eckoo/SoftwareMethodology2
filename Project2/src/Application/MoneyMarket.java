@@ -16,6 +16,9 @@ public class MoneyMarket extends Savings {
 	Fee cannot be waived if the number of
 	withdrawals exceeds 3 times
 	*/
+	/**
+	 * Creates a variable for the Minimum Balance someone can have in their Money Market account to be a loyal member.
+	 */
 	public static final int MINIMAL_LOYAL_BALANCE = 2500;
 
 	private static final double NORMAL_ANNUAL_INTEREST_RATE = 0.008;
@@ -24,6 +27,9 @@ public class MoneyMarket extends Savings {
 	private static final double WAIVED = 0;
 	private static final double FEE = 10;
 
+	/**
+	 * Creates a variable for withdrawl, which will be an amount that we take from a user's account.
+	 */
 	protected int withdrawl;
 
 	/**
@@ -78,7 +84,6 @@ public class MoneyMarket extends Savings {
 	/**
 	 * The withdraw method keeps count of how many times a withdraw has been made from an account.
 	 * @param amount Object of type double.
-	 * @return false if balance is less than minimum loyal balance.
 	 */
 	@Override
 	public void withdraw(double amount) {

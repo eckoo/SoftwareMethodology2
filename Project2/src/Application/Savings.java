@@ -7,6 +7,9 @@ package Application;
  */
 public class Savings extends Account {
 
+	/**
+	 * Creates a variable that will tell us whether or not a user's account is loyal.
+	 */
 	protected boolean loyal;
 
 	private static final double NORMAL_ANNUAL_INTEREST_RATE = 0.003;
@@ -18,7 +21,8 @@ public class Savings extends Account {
 
 	/**
 	 * This is the Savings constructor method.
-	 * @param holder Object of type Profile, balance Object of type double.
+	 * @param holder Object of type Profile.
+	 * @param loyal Object of type boolean.
 	 */
 	public Savings(Profile holder, boolean loyal) {
 		super(holder);

@@ -7,10 +7,24 @@ package Application;
  */
 public class CollegeChecking extends Checking {
 
+	/**
+	 * Creates a variable for the campusCode of New Brunswick.
+	 */
 	public static final int NEW_BRUNSWICK = 0;
+	
+	/**
+	 * Creates a variable for the campusCode of Newark.
+	 */
 	public static final int NEWARK = 1;
+	
+	/**
+	 * Creates a variable for the campusCode of Camden.
+	 */
 	public static final int CAMDEN = 2;
 
+	/**
+	 * Creates a variable for the campusCode inputted by user.
+	 */
 	protected int campusCode;
 
 	private static final double ANNUAL_INTEREST_RATE = 0.0025;
@@ -21,7 +35,8 @@ public class CollegeChecking extends Checking {
 	//if account holder has checking account, cannot create College Checking account. each account holder can only have ONE checking account.
 	/**
 	* This is the CollegeChecking Constructor method.
-	* @param holder Object of type Profile, balance Object of type double, code Object of type int.
+	* @param holder Object of type Profile.
+	* @param campusCode Object of type int.
 	*/
 	public CollegeChecking(Profile holder, int campusCode) {
 		super(holder);

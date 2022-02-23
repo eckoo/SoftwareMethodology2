@@ -7,13 +7,39 @@ package Application;
  */
 public abstract class Account {
 
+	/**
+	 * Sets the account type for College Checking.
+	 */
 	public static final String COLLEGE_CHECKING = "College Checking";
+	
+	/**
+	 * Sets the account type for Money Market.
+	 */
 	public static final String MONEY_MARKET = "Money Market Savings";
+	
+	/**
+	 * Sets the account type for Checking.
+	 */
 	public static final String CHECKING = "Checking";
+	
+	/**
+	 * Sets the account type for Savings.
+	 */
 	public static final String SAVINGS = "Savings";
 	
+	/**
+	 * Creates the holder of the account, an Object of type Profile.
+	 */
 	protected Profile holder;
+	
+	/**
+	 * Creates the variable that determines whether or not an account is closed, an Object of type boolean.
+	 */
 	protected boolean closed;
+	
+	/**
+	 * Creates the balance of the account, an Object of type boolean.
+	 */
 	protected double balance;
 
 	/**
@@ -92,16 +118,19 @@ public abstract class Account {
 
 	/**
 	 * monthlyInterest returns the monthly interest.
+	 * @return the monthly interest.
 	 */
 	public abstract double monthlyInterest(); // return the monthly interest
 
 	/**
 	 * fee returns the monthly fee.
+	 * @return the monthly fee.
 	 */
 	public abstract double fee(); // return the monthly fee
 
 	/**
 	 * getType returns the account type.
+	 * @return the account type.
 	 */
 	public abstract String getType(); // return the account type (class name)
 }

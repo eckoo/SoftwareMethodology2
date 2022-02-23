@@ -14,7 +14,9 @@ public class Profile {
 	/**
 	 * This is the Profile constructor method.
 	 * 
-	 * @param fname, lname Object of type String, dob Object of type Date.
+	 * @param fname Object of type String.
+	 * @param lname Object of type String.
+	 * @param dob Object of type Date.
 	 */
 	public Profile(String fname, String lname, Date dob) {
 		this.fname = fname;
