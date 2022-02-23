@@ -98,7 +98,7 @@ public class BankTeller {
 			OA(tokens);
 		} else if (tokens[COMMAND_TOKEN_INDEX].equals("C")) {
 			if (n < C_COMMAND_TOKEN_COUNT) {
-				System.out.println("Missing data for opening an account.");
+				System.out.println("Missing data for closing an account.");
 			} else {
 				C(tokens);
 			}
