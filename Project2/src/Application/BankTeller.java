@@ -2,7 +2,13 @@ package Application;
 
 import java.util.Scanner;
 
+/**
+ * BankTeller holds the logic for getting and setting variables in the BankTeller class.
+ *
+ * @author Kiernan King and Ahmed Alghazwi
+ */
 public class BankTeller {
+
 	private AccountDatabase accountDatabase;
 
 	private static final int COMMAND_TOKEN_INDEX = 0;

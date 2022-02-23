@@ -5,8 +5,8 @@ import java.util.StringTokenizer;
 import java.text.DecimalFormat;
 
 /**
- * This is the Util class
- *
+ * Util holds the logic for getting and setting variables in the Util class.
+ * 
  * @author Kiernan King and Ahmed Alghazwi
  */
 public class Util {

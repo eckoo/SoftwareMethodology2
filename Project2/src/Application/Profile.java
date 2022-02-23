@@ -1,12 +1,16 @@
 package Application;
 
+/**
+ * This is the Profile class.
+ * 
+ * @author Kiernan King and Ahmed Alghazwi
+ */
 public class Profile {
+
 	private String fname;
 	private String lname;
 	private Date dob;
-	
-	private static final int EQUALS = 0;
-	
+
 	/**
 	 * This is the Profile constructor method.
 	 * 
@@ -17,7 +21,16 @@ public class Profile {
 		this.lname = lname;
 		this.dob = dob;
 	}
-	
+
+	/**
+	 * This is the toString method.
+	 * @return the string representation of the profile.
+	 */
+	@Override
+	public String toString() {
+		return this.fname + " " + this.lname + " " + this.dob.toString();
+	}
+
 	/**
 	 * The equals method determines if the profile inputted equals the profile in the system.
 	 *
@@ -40,14 +53,5 @@ public class Profile {
 			return false;
 		}
 		return true;
-	}
-	
-	/**
-	 * This is the toString method.
-	 * @return the string representation of the profile.
-	 */
-	@Override
-	public String toString() {
-		return this.fname + " " + this.lname + ", DOB: " + this.dob.toString();
 	}
 }

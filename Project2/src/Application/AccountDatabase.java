@@ -1,5 +1,10 @@
 package Application;
 
+/**
+ * AccountDatabase holds the logic for getting and setting variables in the AccountDatabase class.
+ *
+ * @author Kiernan King and Ahmed Alghazwi
+ */
 public class AccountDatabase {
 	private Account[] accounts;
 	private int numAcct;
@@ -19,6 +24,13 @@ public class AccountDatabase {
 	private static final int GROW = 0;
 
 	/**
+	 * This is the AccountDatabase constructor.
+	 */
+	public AccountDatabase() {
+		this.accounts = new Account[DEFAULT_CAPACITY];
+	}
+
+	/**
 	 * The find method checks to see if we can find the appointment in the system.
 	 * 
 	 * @param account Object of type Account.
@@ -33,10 +45,9 @@ public class AccountDatabase {
 		}
 		return NOT_FOUND;
 	}
-	
+
 	/**
 	 * This is the grow method.
-	 * Increases the capacity of the container by 4.
 	 */
 	private void grow() {
 		Account[] newAccounts = new Account[this.accounts.length + GROW];
@@ -45,16 +56,9 @@ public class AccountDatabase {
 		}
 		this.accounts = newAccounts;
 	}
-	
+
 	/**
-	 * This is the AccountDatabase constructor.
-	 */
-	public AccountDatabase() {
-		this.accounts = new Account[DEFAULT_CAPACITY];
-	}
-	
-	/**
-	 * The 'add' method adds an appointment to the list of appointments if it does not exist already.
+	 * The open method adds an account to the list of accounts if it does not exist already.
 	 * 
 	 * @param account Object of type Account.
 	 * @return true if we are able to successfully open the new account.
@@ -66,7 +70,7 @@ public class AccountDatabase {
 		this.accounts[this.numAcct++] = account;
 		return true;
 	}
-	
+
 	/**
 	 * The 'close' method closes an account from the list of accounts.
 	 * 
@@ -79,8 +83,7 @@ public class AccountDatabase {
 			Account found = this.accounts[index];
 			if (found.closed) {
 				return false;
-			}
-			else {
+			} else {
 				found.closed = true;
 				found.balance = CLOSED_BALANCE;
 				if (found.getType().equals(Account.SAVINGS) || found.getType().equals(Account.MONEY_MARKET)) {
@@ -94,7 +97,31 @@ public class AccountDatabase {
 		}
 		return false;
 	}
-	
+
+	/**
+	 * The deposit method deposits a given amount into a given account.
+	 * @param account Object of type Account.
+	 */
+	public void deposit(Account account) {
+		this.getAccount(account).deposit(account.balance);
+	}
+
+	/**
+	 * The withdraw method withdraws a certain amount from a given account.
+	 * @param account Object of type Account.
+	 * @return true if withdrawn successfully, false if not.
+	 */
+	public boolean withdraw(Account account) {
+		Account anotherAccount = this.getAccount(account);
+		double amount = account.getBalance();
+		if (anotherAccount.getBalance() > amount) {
+			anotherAccount.withdraw(amount);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	/**
 	 * This is the print method.
 	 * Prints all the accounts in current order.
@@ -102,18 +129,17 @@ public class AccountDatabase {
 	public void print() {
 		if (numAcct == EMPTY) {
 			System.out.println("Account Database is empty!");
-		}
-		else {
+		} else {
 			System.out.println();
 			System.out.println("*list of accounts in the database*");
 			for (int i = BEGINNING_INDEX; i < numAcct; i++) {
 				System.out.println(this.accounts[i].toString());
 			}
-			System.out.println("*end of list.");
+			System.out.println("*end of list*");
 			System.out.println();
 		}
 	}
-	
+
 	/**
 	 * This is the printByAccountType method.
 	 * Prints all the accounts in order by Account Type.
@@ -121,8 +147,7 @@ public class AccountDatabase {
 	public void printByAccountType() {
 		if (numAcct == EMPTY) {
 			System.out.println("Account Database is empty!");
-		}
-		else {
+		} else {
 			for (int i = BEGINNING_INDEX; i < this.numAcct; i++) {
 				for (int j = i + NEXT; j < this.numAcct; j++) {
 					if (this.accounts[i].getType().compareTo(this.accounts[j].getType()) > EQUALS) {
@@ -141,8 +166,7 @@ public class AccountDatabase {
 			System.out.println();
 		}
 	}
-	
-	
+
 	/**
 	 * This is the printFeeAndInterest method.
 	 * Prints all the accounts in order by fee and interest.
@@ -150,8 +174,8 @@ public class AccountDatabase {
 	public void printFeeAndInterest() {
 		if (numAcct == EMPTY) {
 			System.out.println("Account Database is empty!");
-		} 
-		else {
+		} else {
+
 			System.out.println();
 			System.out.println("*list of accounts with fee and monthly interest");
 			for (int i = BEGINNING_INDEX; i < numAcct; i++) {
@@ -164,40 +188,14 @@ public class AccountDatabase {
 			System.out.println();
 		}
 	}
-	
-	/**
-	 * The deposit method deposits a given amount into a given account.
-	 * @param account Object of type Account.
-	 */
-	public void deposit(Account account) {
-		this.getAccount(account).deposit(account.balance);
-	}
-	
-	/**
-	 * The withdraw method withdraws a certain amount from a given account.
-	 * @param account Object of type Account.
-	 * @return true if withdrawn successfully, false if not.
-	 */
-	public boolean withdraw(Account account) {
-		Account anotherAccount = this.getAccount(account);
-		double amount = account.getBalance();
-		if (anotherAccount.getBalance() > amount) {
-			anotherAccount.withdraw(amount);
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
+
 	/**
 	 * The updateBalance method updates the current balance of the account.
 	 */
 	public void updateBalance() {
 		if (numAcct == EMPTY) {
 			System.out.println("Account Database is empty!");
-		}
-		else {
+		} else {
 
 			System.out.println();
 			System.out.println("*list of accounts with updated balance");
@@ -211,7 +209,7 @@ public class AccountDatabase {
 			System.out.println();
 		}
 	}
-	
+
 	/**
 	 * The checkOpen method will check to see if we can add an account to the list of accounts.
 	 * @param account Object of type Account..
@@ -228,8 +226,7 @@ public class AccountDatabase {
 					&& account.getHolder().equals(anotherAccount.getHolder())) {
 				if (anotherAccount.closed && anotherAccount.getType().equals(account.getType())) {
 					return OPEN_REOPEN_OK;
-				}
-				else {
+				} else {
 					return OPEN_FAILED;
 				}
 			}
@@ -246,9 +243,9 @@ public class AccountDatabase {
 		int index = find(account);
 		if (index != NOT_FOUND) {
 			return this.accounts[index];
-		}
-		else {
+		} else {
 			return null;
 		}
 	}
+
 }

@@ -190,3 +190,4 @@ public class Date implements Comparable<Date> {
 		}
 		return (year % QUATERCENTENNIAL == DIVISIBLE_ZERO);
 	}
+}
