@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 /**
- * This is the MoneyMarketTests class.
+ * MoneyMarketTests holds the logic for testing the monthlyInterest() method in the MoneyMarket class.
  * 
  * @author Kiernan King and Ahmed Alghazwi
  */

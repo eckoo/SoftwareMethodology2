@@ -75,7 +75,7 @@ public class MoneyMarket extends Savings {
 	 */
 	@Override
 	public double fee() {
-		if (this.loyal) {
+		if (this.loyal && this.withdrawl < 4) {
 			return WAIVED;
 		} else {
 			return FEE;

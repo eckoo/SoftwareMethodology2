@@ -7,10 +7,29 @@ package Application;
  */
 public class Checking extends Account {
 
+	/**
+	 * Creates a variable for the minimum balance allowed in account.
+	 */
 	private static final double MINIMAL_BALANCE = 1000;
+	
+	/**
+	 * Creates a variable for the monthly fee.
+	 */
 	private static final double FEE = 25;
+	
+	/**
+	 * Creates a variable for the waived monthly fee.
+	 */
 	private static final double WAIVED = 0;
+	
+	/**
+	 * Creates a variable for the annual interest rate.
+	 */
 	private static final double ANNUAL_INTEREST_RATE = 0.001;
+	
+	/**
+	 * Crates a variable for the number of months in a year.
+	 */
 	private static final int NUM_MONTHS_IN_YEAR = 12;
 
 	/**

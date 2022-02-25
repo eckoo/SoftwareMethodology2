@@ -8,7 +8,10 @@ import java.util.Scanner;
  * @author Kiernan King and Ahmed Alghazwi
  */
 public class BankTeller {
-
+	
+	/**
+	 * Creates a variable for interfacing with the account database.
+	 */
 	private AccountDatabase accountDatabase;
 
 	/**

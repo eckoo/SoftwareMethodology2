@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 /**
- * This is the AccountDatabaseTests class.
+ * AccountDatabaseTests holds the logic for testing the open() and close() methods in the AccountDatabase class.
  * 
  * @author Kiernan King and Ahmed Alghazwi
  */

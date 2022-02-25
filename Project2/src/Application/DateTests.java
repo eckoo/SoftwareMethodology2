@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 /**
- * This is the DateTests class.
+ * DateTests holds the logic for testing the isValid() method in the Date class.
  * 
  * @author Kiernan King and Ahmed Alghazwi
  */

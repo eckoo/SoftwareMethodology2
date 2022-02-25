@@ -24,14 +24,49 @@ public class AccountDatabase {
 	 */
 	public static final int OPEN_FAILED = 2;
 
+	/**
+	 * Creates a variable for the default capacity of an array.
+	 */
 	private static final int DEFAULT_CAPACITY = 10086;
+	
+	/**
+	 * Creates a variable for the balance of a closed account.
+	 */
 	private static final int CLOSED_BALANCE = 0;
+	
+	/**
+	 * Creates a variable for equals.
+	 */
 	private static final int EQUALS = 0;
+	
+	/**
+	 * Creates a variable for index not found. 
+	 */
 	private static final int NOT_FOUND = -1;
+	
+	/**
+	 * Creates a variable for beginning index. 
+	 */
 	private static final int BEGINNING_INDEX = 0;
+	
+	/**
+	 * Creates a variable for empty. 
+	 */
 	private static final int EMPTY = 0;
+	
+	/**
+	 * Creates a variable for next. 
+	 */
 	private static final int NEXT = 1;
+	
+	/**
+	 * Creates a variable for resetting the number of withdraws. 
+	 */
 	private static final int WITHDRAWL_RESET = 0;
+	
+	/**
+	 * Creates a variable for growing the array. 
+	 */
 	private static final int GROW = 0;
 
 	/**

@@ -11,7 +11,14 @@ import java.text.DecimalFormat;
  */
 public class Util {
 
+	/**
+	 * Creates a variable for the beginning index.
+	 */
 	private static final int BEGINNING_INDEX = 0;
+	
+	/**
+	 * Creates a variable for the max token count.
+	 */
 	private static final int MAX_TOKEN_COUNT = 100;
 
 	/**
