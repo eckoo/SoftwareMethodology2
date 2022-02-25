@@ -61,7 +61,7 @@ public class MoneyMarket extends Savings {
 
 	/**
 	 * monthlyInterest returns the monthly interest of the Money Market account.
-	 * @return moneyMarketLoyalMonthlyInterest if loyal customer, moneyMarketNonLoyalMonthlyInterest if non-loyal customer.
+	 * @return this.balance * annualInterestRate / NUM_MONTHS_IN_YEAR with differing values based on if loyal customer or if non-loyal customer.
 	 */
 	@Override
 	public double monthlyInterest() {

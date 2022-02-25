@@ -22,14 +22,21 @@ class MoneyMarketTests {
 	 */
 	@Test
 	void testMonthlyInterest() {
-		MoneyMarket moneyMarket = new MoneyMarket(new Profile(null, null, null));
-		moneyMarket.deposit(10000);
-		assertEquals(0.01, moneyMarket.monthlyInterest(), 95);
+		//Money Market
+		MoneyMarket moneyMarket = new MoneyMarket(new Profile("John", "Doe", null));
+		moneyMarket.deposit(3000);
+		assertEquals(2.375, moneyMarket.monthlyInterest());
+		
+		MoneyMarket moneyMarket2 = new MoneyMarket(new Profile("John", "Doe", null));
+		moneyMarket2.deposit(750);
+		assertEquals(0.59375, moneyMarket2.monthlyInterest());
 	}
 	
-	/**
+	
+	/*
 	 * This is the testFee method.
 	 */
+	/*
 	@Test
 	void testFee() {
 		MoneyMarket moneyMarket = new MoneyMarket(new Profile(null, null, null));
@@ -41,5 +48,6 @@ class MoneyMarketTests {
 		assertEquals(10, moneyMarket.fee()); //passes, means the account is not loyal
 		moneyMarket.withdraw(1000);
 	}
+	*/
 
 }

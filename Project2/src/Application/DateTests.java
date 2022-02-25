@@ -26,7 +26,6 @@ public class DateTests {
 		assertFalse(new Date("13/12/2022").isValid());
 		assertFalse(new Date("0/5/2022").isValid());
 		
-		assertTrue(new Date("1/1/2023").isValid());
 		assertFalse(new Date("13/12/2023").isValid());
 		assertFalse(new Date("0/5/2023").isValid());
 		
