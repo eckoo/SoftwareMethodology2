@@ -101,7 +101,8 @@ public class MoneyMarket extends Savings {
 	}
 
 	/**
-	 * The withdraw method keeps count of how many times a withdraw has been made from an account, sets account to not loyal if balance is below a certain amount.
+	 * The withdraw method keeps count of how many times a withdraw has been made from an account, 
+	 * sets account to not loyal if balance is below a certain amount.
 	 * @param amount Object of type double.
 	 */
 	@Override
