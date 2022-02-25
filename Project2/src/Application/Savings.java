@@ -12,11 +12,33 @@ public class Savings extends Account {
 	 */
 	protected boolean loyal;
 
+	/**
+	 * Creates a variable for the normal annual interest rate.
+	 */
 	private static final double NORMAL_ANNUAL_INTEREST_RATE = 0.003;
+
+	/**
+	 * Creates a variable for the loyal annual interest rate.
+	 */
 	private static final double LOYAL_ANNUAL_INTEREST_RATE = 0.0045;
+	/**
+	 * Creates a variable for the number of months in one year.
+	 */
 	private static final int NUM_MONTHS_IN_YEAR = 12;
+	
+	/**
+	 * Creates a variable for the Minimum Balance someone can have in their Savings account.
+	 */
 	private static final int MINIMAL_BALANCE = 300;
+
+	/**
+	 * Creates a variable for the waived monthly fee.
+	 */
 	private static final int WAIVED = 0;
+
+	/**
+	 * Creates a variable for the monthly fee.
+	 */
 	private static final int FEE = 6;
 
 	/**

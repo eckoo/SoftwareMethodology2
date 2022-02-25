@@ -27,8 +27,19 @@ public class CollegeChecking extends Checking {
 	 */
 	protected int campusCode;
 
+	/**
+	 * Creates a variable for the annual interest rate.
+	 */
 	private static final double ANNUAL_INTEREST_RATE = 0.0025;
+	
+	/**
+	 * Creates a variable for the number of months in one year.
+	 */
 	private static final int NUM_MONTHS_IN_YEAR = 12;
+	
+	/**
+	 * Creates a variable for the waived monthly fee.
+	 */
 	private static final double WAIVED = 0;
 
 	//must provide campus code

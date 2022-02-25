@@ -21,10 +21,29 @@ public class MoneyMarket extends Savings {
 	 */
 	public static final int MINIMAL_LOYAL_BALANCE = 2500;
 
+	/**
+	 * Creates a variable for the normal annual interest rate.
+	 */
 	private static final double NORMAL_ANNUAL_INTEREST_RATE = 0.008;
+
+	/**
+	 * Creates a variable for the loyal annual interest rate.
+	 */
 	private static final double LOYAL_ANNUAL_INTEREST_RATE = 0.0095;
+
+	/**
+	 * Creates a variable for the number of months in one year.
+	 */
 	private static final int NUM_MONTHS_IN_YEAR = 12;
+	
+	/**
+	 * Creates a variable for the waived monthly fee.
+	 */
 	private static final double WAIVED = 0;
+	
+	/**
+	 * Creates a variable for the monthly fee.
+	 */
 	private static final double FEE = 10;
 
 	/**
@@ -82,7 +101,7 @@ public class MoneyMarket extends Savings {
 	}
 
 	/**
-	 * The withdraw method keeps count of how many times a withdraw has been made from an account.
+	 * The withdraw method keeps count of how many times a withdraw has been made from an account, sets account to not loyal if balance is below a certain amount.
 	 * @param amount Object of type double.
 	 */
 	@Override

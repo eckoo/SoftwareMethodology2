@@ -11,44 +11,163 @@ public class BankTeller {
 
 	private AccountDatabase accountDatabase;
 
+	/**
+	 * This is COMMAND_TOKEN_INDEX
+	 */
 	private static final int COMMAND_TOKEN_INDEX = 0;
+
+	/**
+	 * This is Q_COMMAND_TOKEN_COUNT
+	 */
 	private static final int Q_COMMAND_TOKEN_COUNT = 1;
+
+	/**
+	 * This is O_COMMAND_MINIMAL_TOKEN_COUNT
+	 */
 	private static final int O_COMMAND_MINIMAL_TOKEN_COUNT = 6;
+	/**
+	 * This is O_COMMAND_MAXIMAL_TOKEN_COUNT
+	 */
 	private static final int O_COMMAND_MAXIMAL_TOKEN_COUNT = 7;
+	/**
+	 * This is C_COMMAND_TOKEN_COUNT
+	 */
 	private static final int C_COMMAND_TOKEN_COUNT = 5;
+	/**
+	 * This is D_COMMAND_TOKEN_COUNT
+	 */
 	private static final int D_COMMAND_TOKEN_COUNT = 6;
+	/**
+	 * This is W_COMMAND_TOKEN_COUNT
+	 */
 	private static final int W_COMMAND_TOKEN_COUNT = 6;
+	/**
+	 * This is P_COMMAND_TOKEN_COUNT
+	 */
 	private static final int P_COMMAND_TOKEN_COUNT = 1;
+	/**
+	 * This is PT_COMMAND_TOKEN_COUNT
+	 */
 	private static final int PT_COMMAND_TOKEN_COUNT = 1;
+	/**
+	 * This is PI_COMMAND_TOKEN_COUNT
+	 */
 	private static final int PI_COMMAND_TOKEN_COUNT = 1;
+	/**
+	 * This is UB_COMMAND_TOKEN_COUNT
+	 */
 	private static final int UB_COMMAND_TOKEN_COUNT = 1;
+	/**
+	 * This is O_COMMAND_ACCOUNT_TYPE_INDEX
+	 */
 	private static final int O_COMMAND_ACCOUNT_TYPE_INDEX = 1;
+	/**
+	 * This is O_COMMAND_FNAME_TOKEN_INDEX
+	 */
 	private static final int O_COMMAND_FNAME_TOKEN_INDEX = 2;
+	/**
+	 * This is O_COMMAND_LNAME_TOKEN_INDEX
+	 */
 	private static final int O_COMMAND_LNAME_TOKEN_INDEX = 3;
+	/**
+	 * This is O_COMMAND_DOB_TOKEN_INDEX
+	 */
 	private static final int O_COMMAND_DOB_TOKEN_INDEX = 4;
+	/**
+	 * This is O_COMMAND_DEPOSIT_TOKEN_INDEX
+	 */
 	private static final int O_COMMAND_DEPOSIT_TOKEN_INDEX = 5;
+	/**
+	 * This is O_COMMAND_CAMPUS_CODE_TOKEN_INDEX
+	 */
 	private static final int O_COMMAND_CAMPUS_CODE_TOKEN_INDEX = 6;
+	/**
+	 * This is O_COMMAND_SAVING_CODE_TOKEN_INDEX
+	 */
 	private static final int O_COMMAND_SAVING_CODE_TOKEN_INDEX = 6;
+	/**
+	 * This is LESSER
+	 */
 	private static final int LESSER = -1;
+	/**
+	 * This is INVALID_CAMPUS_CODE
+	 */
 	private static final int INVALID_CAMPUS_CODE = -1;
+	/**
+	 * This is INVALID_SAVING_CODE
+	 */
 	private static final int INVALID_SAVING_CODE = -1;
+	/**
+	 * This is SAVING_CODE_NON_LOYAL
+	 */
 	private static final int SAVING_CODE_NON_LOYAL = 0;
+	/**
+	 * This is SAVING_CODE_LOYAL
+	 */
 	private static final int SAVING_CODE_LOYAL = 1;
+	/**
+	 * This is C_COMMAND_ACCOUNT_TYPE_TOKEN_INDEX
+	 */
 	private static final int C_COMMAND_ACCOUNT_TYPE_TOKEN_INDEX = 1;
+	/**
+	 * This is C_COMMAND_FNAME_TOKEN_INDEX
+	 */
 	private static final int C_COMMAND_FNAME_TOKEN_INDEX = 2;
+	/**
+	 * This is C_COMMAND_LNAME_TOKEN_INDEX
+	 */
 	private static final int C_COMMAND_LNAME_TOKEN_INDEX = 3;
+	/**
+	 * This is C_COMMAND_DOB_TOKEN_INDEX
+	 */
 	private static final int C_COMMAND_DOB_TOKEN_INDEX = 4;
+	/**
+	 * This is D_COMMAND_ACCOUNT_TYPE_TOKEN_INDEX
+	 */
 	private static final int D_COMMAND_ACCOUNT_TYPE_TOKEN_INDEX = 1;
+	/**
+	 * This is D_COMMAND_FNAME_TOKEN_INDEX
+	 */
 	private static final int D_COMMAND_FNAME_TOKEN_INDEX = 2;
+	/**
+	 * This is D_COMMAND_LNAME_TOKEN_INDEX
+	 */
 	private static final int D_COMMAND_LNAME_TOKEN_INDEX = 3;
+	/**
+	 * This is D_COMMAND_DOB_TOKEN_INDEX
+	 */
 	private static final int D_COMMAND_DOB_TOKEN_INDEX = 4;
+	/**
+	 * This is D_COMMAND_AMOUNT_TOKEN_INDEX
+	 */
 	private static final int D_COMMAND_AMOUNT_TOKEN_INDEX = 5;
+	/**
+	 * This is W_COMMAND_ACCOUNT_TYPE_TOKEN_INDEX
+	 */
 	private static final int W_COMMAND_ACCOUNT_TYPE_TOKEN_INDEX = 1;
+	/**
+	 * This is W_COMMAND_FNAME_TOKEN_INDEX
+	 */
 	private static final int W_COMMAND_FNAME_TOKEN_INDEX = 2;
+	/**
+	 * This is W_COMMAND_LNAME_TOKEN_INDEX
+	 */
 	private static final int W_COMMAND_LNAME_TOKEN_INDEX = 3;
+	/**
+	 * This is W_COMMAND_DOB_TOKEN_INDEX
+	 */
 	private static final int W_COMMAND_DOB_TOKEN_INDEX = 4;
+	/**
+	 * This is W_COMMAND_AMOUNT_TOKEN_INDEX
+	 */
 	private static final int W_COMMAND_AMOUNT_TOKEN_INDEX = 5;
+	/**
+	 * This is NO_TOKENS
+	 */
 	private static final int NO_TOKENS = 0;
+	/**
+	 * This is ZERO_AMOUNT
+	 */
 	private static final double ZERO_AMOUNT = 0;
 
 	/**
@@ -70,8 +189,8 @@ public class BankTeller {
 	 * This is the run method.
 	 */
 	private void run() {
-		System.out.println();
 		System.out.println("Bank Teller is running.");
+		System.out.println();
 		System.out.println();
 		Scanner scanner = new Scanner(System.in);
 		while (true) {
@@ -225,6 +344,9 @@ public class BankTeller {
 			if (accountType.equals("CC")) {
 				((CollegeChecking) account).campusCode = campusCode;
 			}
+			if (accountType.equals("MM") && deposit > MoneyMarket.MINIMAL_LOYAL_BALANCE) {
+				((MoneyMarket) account).loyal = true;
+			}
 			account.deposit(deposit);
 			System.out.println("Account reopened.");
 		} else {
@@ -271,13 +393,12 @@ public class BankTeller {
 		Account account = createAccount(accountType, profile, INVALID_CAMPUS_CODE, INVALID_SAVING_CODE);
 		account.deposit(amount);
 		if (this.accountDatabase.getAccount(account) == null) {
-			System.out.println(fname + " " + lname + " " + dob + " " + account.getType().replace
-					("Money Market Savings", "Money Market") + " is not in the database.");
+			System.out.println(fname + " " + lname + " " + dob + " "
+					+ account.getType().replace("Money Market Savings", "Money Market") + " is not in the database.");
 		} else {
 			this.accountDatabase.deposit(account);
 			System.out.println("Deposit - balance updated.");
 		}
-
 	}
 
 	/**
@@ -303,8 +424,8 @@ public class BankTeller {
 		Account account = createAccount(accountType, profile, INVALID_CAMPUS_CODE, INVALID_SAVING_CODE);
 		account.deposit(amount);
 		if (this.accountDatabase.getAccount(account) == null) {
-			System.out.println(fname + " " + lname + " " + dob + " " + account.getType().replace
-					("Money Market Savings", "Money Market") + " is not in the database.");
+			System.out.println(fname + " " + lname + " " + dob + " "
+					+ account.getType().replace("Money Market Savings", "Money Market") + " is not in the database.");
 		} else {
 			if (this.accountDatabase.withdraw(account)) {
 				System.out.println("Withdraw - balance updated.");
@@ -361,7 +482,7 @@ public class BankTeller {
 			account = new Savings(profile, savingCode == SAVING_CODE_LOYAL);
 		} else if (accountType.equals("MM")) {
 			account = new MoneyMarket(profile);
-		} 
+		}
 		return account;
 	}
 }
